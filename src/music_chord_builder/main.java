@@ -7,8 +7,8 @@ public class main {
 
 	public static void main(String[] args) {
 		
-		//scanner
-		Scanner scnr = new Scanner(System.in);
+		//object for validation class
+		InputValidation input = new InputValidation();
 		
 		//data and variables
 		ArrayList<String> notes = new ArrayList<String>();
@@ -40,7 +40,8 @@ public class main {
 		ArrayList<String> chords = new ArrayList<String>();
 		chords.add("Major");
 		chords.add("Minor");
-		
+		chords.add("Diminished");
+		chords.add("Augmented");
 		boolean cont = false;
 		
 		//greeting
@@ -55,8 +56,8 @@ public class main {
 			}
 			
 			//prompt and get root
-			System.out.println("Please enter a number associated with one of the notes above:");
-			int root = scnr.nextInt();
+			int root = input.readInteger("Please enter a number associated with one of the notes above:", "Not a valid choice", 1, 12);
+			
 			//prompt and print chord types
 			System.out.println("What chord type would you like?");
 			for (String element : chords) {
@@ -64,8 +65,7 @@ public class main {
 			}	
 			
 			//prompt and get chord type
-			System.out.println("Please enter a number associated with one of the chord types above:");
-			int chord = scnr.nextInt();
+			int chord = input.readInteger("Please enter a number associated with one of the chord types above:", "Not a valid choice", 1,4);
 			
 			//print choices
 			System.out.println("\nChord Root:" + notes.get(root -1));
@@ -74,12 +74,13 @@ public class main {
 			//print methods
 			if(chord == 1) {
 				System.out.println("Notes in chord: " + makeMajor(notes, root));
-			}else {
+			}else if(chord == 2){
 				System.out.println("Notes in chord: " + makeMinor(notes, root));
+			}else if(chord == 3) {
+				System.out.println("Notes in chord: " + makeDiminished(notes, root));
+			}else if(chord ==4) {
+				System.out.println("Notes in chord: " + makeAugmented(notes, root));
 			}
-			
-			//clear scanner
-			scnr.nextLine();
 			
 			//variable for second loop
 			boolean cont2 = false;
@@ -87,25 +88,22 @@ public class main {
 			//loop 2
 			while(!cont2) {	
 				//prompt to continue and get choice plus validation
-				System.out.println("Would you like to make another chord? (Y/N)");
-				String yN = scnr.nextLine();
-				if(yN.equalsIgnoreCase("y")) {
+				System.out.println("Would you like to make another chord?:"
+						+ "\n1. Yes"
+						+ "\n2. No");
+				int yN = input.readInteger("Please enter the number associated with your choice", "Not a valid choice", 1, 2);
+				if(yN == 1) {
 					cont = false; 
 					cont2 = true;
-				}else if (yN.equalsIgnoreCase("n")){
+				}else if (yN == 2){
 					cont = true;
 					cont2 = true;
-				}else {
-					System.out.println("Not a valid input, try again.");
-					cont2 = false;
 				}
 			}
 		}
 		
 		//end prompt
 		System.out.println("Thanks for trying out my chord builder app, goodbye!");
-		//close scanner
-		scnr.close();
 	}
 	
 	//method one for major chords
@@ -123,6 +121,24 @@ public class main {
 		newChord.add(notes.get(root - 1));
 		newChord.add(notes.get(root + 2));
 		newChord.add(notes.get(root + 6));
+		return newChord;
+	}
+	
+	//method for diminished
+	public static ArrayList<String> makeDiminished (ArrayList<String> notes, int root){
+		ArrayList<String> newChord = new ArrayList<String>();
+		newChord.add(notes.get(root - 1));
+		newChord.add(notes.get(root + 2));
+		newChord.add(notes.get(root + 5));
+		return newChord;
+	}
+	
+	//method for augmented
+	public static ArrayList<String> makeAugmented (ArrayList<String> notes, int root){
+		ArrayList<String> newChord = new ArrayList<String>();
+		newChord.add(notes.get(root - 1));
+		newChord.add(notes.get(root + 3));
+		newChord.add(notes.get(root + 7));
 		return newChord;
 	}
 }
