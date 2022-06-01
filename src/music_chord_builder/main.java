@@ -42,6 +42,11 @@ public class main {
 		chords.add("Minor");
 		chords.add("Diminished");
 		chords.add("Augmented");
+		chords.add("Maj-7");
+		chords.add("Dom-7");
+		chords.add("Min-7");
+		chords.add("Half Dim-7");
+		chords.add("Dim-7");
 		boolean cont = false;
 		
 		//greeting
@@ -65,7 +70,7 @@ public class main {
 			}	
 			
 			//prompt and get chord type
-			int chord = input.readInteger("Please enter a number associated with one of the chord types above:", "Not a valid choice", 1,4);
+			int chord = input.readInteger("Please enter a number associated with one of the chord types above:", "Not a valid choice", 1,9);
 			
 			//print choices
 			System.out.println("\nChord Root:" + notes.get(root -1));
@@ -80,6 +85,16 @@ public class main {
 				System.out.println("Notes in chord: " + makeDiminished(notes, root));
 			}else if(chord ==4) {
 				System.out.println("Notes in chord: " + makeAugmented(notes, root));
+			}else if(chord == 5) {
+				System.out.println("Notes in chord: " + makeMaj7(notes, root));
+			}else if(chord == 6) {
+				System.out.println("Notes in chord: " + makeDom7(notes, root));
+			}else if(chord == 7) {
+				System.out.println("Notes in chord: " + makeMin7(notes, root));
+			}else if(chord == 8) {
+				System.out.println("Notes in chord: " + makeHalfDim7(notes, root));
+			}else if (chord == 9) {
+				System.out.println("Notes in chord: " + makeDim7(notes, root));
 			}
 			
 			//variable for second loop
@@ -139,6 +154,55 @@ public class main {
 		newChord.add(notes.get(root - 1));
 		newChord.add(notes.get(root + 3));
 		newChord.add(notes.get(root + 7));
+		return newChord;
+	}
+	
+	//method for major 7
+	public static ArrayList<String> makeMaj7 (ArrayList<String> notes, int root){
+		ArrayList<String> newChord = new ArrayList<String>();
+		newChord.add(notes.get(root - 1));
+		newChord.add(notes.get(root + 3));
+		newChord.add(notes.get(root + 6));
+		newChord.add(notes.get(root + 10));	
+		return newChord;
+	}
+
+	//method for Dominant 7
+	public static ArrayList<String> makeDom7 (ArrayList<String> notes, int root){
+		ArrayList<String> newChord = new ArrayList<String>();
+		newChord.add(notes.get(root - 1));
+		newChord.add(notes.get(root + 3));
+		newChord.add(notes.get(root + 6));
+		newChord.add(notes.get(root + 9));	
+		return newChord;
+	}
+	
+	//method two for minor 7
+	public static ArrayList<String> makeMin7 (ArrayList<String> notes, int root){
+		ArrayList<String> newChord = new ArrayList<String>();
+		newChord.add(notes.get(root - 1));
+		newChord.add(notes.get(root + 2));
+		newChord.add(notes.get(root + 6));
+		newChord.add(notes.get(root + 9));
+		return newChord;
+	}
+	
+	//method two for minor chords
+	public static ArrayList<String> makeHalfDim7 (ArrayList<String> notes, int root){
+		ArrayList<String> newChord = new ArrayList<String>();
+		newChord.add(notes.get(root - 1));
+		newChord.add(notes.get(root + 2));
+		newChord.add(notes.get(root + 5));
+		newChord.add(notes.get(root + 9));
+		return newChord;
+	}
+	//method two for minor chords
+		public static ArrayList<String> makeDim7 (ArrayList<String> notes, int root){
+		ArrayList<String> newChord = new ArrayList<String>();
+		newChord.add(notes.get(root - 1));
+		newChord.add(notes.get(root + 2));
+		newChord.add(notes.get(root + 5));
+		newChord.add(notes.get(root + 8));
 		return newChord;
 	}
 }
